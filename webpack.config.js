@@ -1,33 +1,14 @@
-import ImageMinimizerPlugin from "image-minimizer-webpack-plugin";
+import * as url from "url";
+import path from "path";
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
 export default {
-  entry: "./src/index.js",
   mode: "production",
-  module: {
-    rules: [
-      {
-        test: /\.(jpe?g|webp)$/i,
-        type: "asset",
-      },
-    ],
-  },
-  optimization: {
-    minimizer: [
-      new ImageMinimizerPlugin({
-        minimizer: {
-          implementation: ImageMinimizerPlugin.sharpMinify,
-          options: {
-            encodeOptions: {
-              jpeg: {
-                quality: 80,
-              },
-              webp: {
-                lossless: true,
-              },
-            },
-          },
-        },
-      }),
-    ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "public"),
+    },
+    compress: true,
+    port: 9000,
   },
 };

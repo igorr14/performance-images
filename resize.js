@@ -17,8 +17,9 @@ for (let i = 0; i < sizesKeys.length; i++) {
   for (let j = 1; j <= NUMBER_OF_IMAGES; j++) {
     sharp(`./images/image${j}.jpeg`)
       .resize(currentSize, currentSize)
-      .toFile(`./assets/jpeg/image${j}-${currentSize}.jpeg`, (err) =>
-        console.log("ERROR: ", err)
+      .toFile(
+        `./cut-images/image${j}-${currentSize}.jpeg`,
+        (err) => err && console.error("ERROR: ", err)
       );
   }
 }
